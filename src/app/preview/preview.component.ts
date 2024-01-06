@@ -21,49 +21,44 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 })
 export class PreviewComponent implements OnInit {
  
-  displayedColumns: string[] = ['sport', 'team1', 'team2', 'match_type', 'winner', 'score'];
  
-  dataSource = new MatTableDataSource<any>();
- 
+  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = ['Sport ', 'Team1', 'Team2', 'Match Type', 'Winner', 'Score'];
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
- 
+
+  getColumnDef(column: string): string {
+    // Custom function to clean up column names
+    return column.trim();
+  }
+
+  getColumnDisplayName(column: string): string {
+    // Custom function to display cleaned up column names
+    return column.trim();
+  }
+
   ngOnInit() {
     this.getData();
   }
- 
+
   constructor(private http: HttpClient) {}
-  range = 'Sheet1';
-  spreadsheetId = '16KFhONQK9W4_-rOTWlXPyZYAe4HyAwOy4Xyvvl2ldB8';
-  apiKey = 'AIzaSyCg8Xa6Kqq4ziNmjDHBlfTPiFqNhHJFGME';
-  data: any;
- 
+
   getData() {
-  this.http
-    .get(`https://sheets.googleapis.com/v4/spreadsheets/${this.spreadsheetId}/values/${this.range}?key=${this.apiKey}`)
-    .subscribe(
-      (res: any) => {
-        const sheetData = res.values;
-        if (sheetData && sheetData.length > 1) {
-          const headers = sheetData[0].map((header: string) => header.trim().toLowerCase().replace(/\s+/g, '_'));
-          const rows = sheetData.slice(1);
- 
-          const formattedData = rows.map((row: string[]) => {
-            const rowData: any = {};
-            headers.forEach((header: string, index: number) => {
-              rowData[header] = row[index];
-            });
-            return rowData;
-          });
- 
-          this.dataSource.data = formattedData;
+    this.http
+      .get(`https://sheet.best/api/sheets/46d03b7e-6076-4b66-bf62-532e404ad621`)
+      .subscribe(
+        (res: any) => {
+          console.log('Received data:', res);
+          this.dataSource = new MatTableDataSource(res);
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-}
+      );
+  }
+  
+  
 }

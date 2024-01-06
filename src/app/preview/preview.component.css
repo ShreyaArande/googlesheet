@@ -18,6 +18,7 @@ table {
   gap: 10px;
   justify-content: center;
   margin-bottom: 20px;
+  margin-top: 60px;
 }
 
 .imgclass {
@@ -55,6 +56,44 @@ table {
   overflow-x: auto; /* Makes the table horizontally scrollable on small screens */
 }
 
+.header {
+  background-color: white;
+  padding: 20px; /* Adjust the padding as needed */
+  display: flex;
+  align-items: center; /* Center items vertically */
+  position: fixed;
+  width: 100%;
+}
+
+.logo {
+ width: 100px;
+}
+
+.logo-main{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.logo-main-text{
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  font-family: math;
+  margin-top: 5px;
+  font-weight: 600;
+}
+
+.sub-text{
+  display: flex;
+  justify-content: center;
+  font-family: math;
+  font-weight: 500;
+  font-size: medium;
+  font-weight: bold;
+}
+
+
 @media screen and (max-width: 768px) {
   .mat-form-field {
     width: 100%;
@@ -86,13 +125,23 @@ table {
   .img-div{
     display: block;
     text-align: center;
-    margin-left: 60px;
+    
   }
   .text-div{
     width: 200px;
     margin-bottom: 20px;
-   left: 50%;
+    margin: auto;
+    margin-bottom: 20px;
   }
+  .logo{
+    margin-top: 18px;
+  }
+  .logo-main{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
 }
 
 .mat-table {
